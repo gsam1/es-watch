@@ -22,3 +22,7 @@
   * /games-feed : id; game; title; description; img; url
   * /scores : id; game; team1; team2; result
   * /last-updates : id; date-time; game_id
+
+
+## License
+Was is das?

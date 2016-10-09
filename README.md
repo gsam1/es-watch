@@ -16,6 +16,7 @@
   * S1 Tasks:
   * * Aggregator Base Ready
   * * FE/BE Alpha Ready
+  
 ### DB Structure
   * /users
   * /games-feed : id; game; title; description; img; url

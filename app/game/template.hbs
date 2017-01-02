@@ -1,2 +1,9 @@
 <h1>Games</h1>
+{{#each model as |games|}}
+  <article>
+    <h2>{{games.title}}</h2>
+    <p>{{games.game}}</p>
+    <p>{{games.url}}</p>
+  </article>
+{{/each}}
 {{outlet}}

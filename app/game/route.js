@@ -2,23 +2,20 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(){
-    	return this.store.findAll('game');
-    /*let results = [];
    return Ember.$.ajax({
-           url: "http://localhost:8080/api/feeds/",
+           url: "http://localhost:8080/api/games/",
            type: "GET",
            crossDomain: true,
            dataType: "json",
            success: function (response) {
                var resp = JSON.parse(response);
-               results.push(resp);
-               console.log(results[0]);
-               return results[0];
+               console.log(resp);
+               return resp;
            },
            error: function (xhr, status) {
                console.log("error: ",status);
                console.log("error: ",xhr);
            }
-       });*/
+       });
   }
 });

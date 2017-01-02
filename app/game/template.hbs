@@ -1,9 +1,9 @@
 <h1>Games</h1>
-{{#each model as |games|}}
+{{#each resp as |model|}}
   <article>
-    <h2>{{games.title}}</h2>
-    <p>{{games.game}}</p>
-    <p>{{games.url}}</p>
+    <h2>{{model.title}}</h2>
+    <p>{{model.game}}</p>
+    <p>{{model.url}}</p>
   </article>
 {{/each}}
 {{outlet}}

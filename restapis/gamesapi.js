@@ -3,19 +3,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const app = express();
-let games = [];
-app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
-app.use(bodyParser.json());                                     // parse application/json
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as constn
-app.use(cors());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-const port = process.env.PORT || 8080;
 const mysql = require('mysql');
+
+const app = express();
+const port = process.env.PORT || 8080;
 const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -24,34 +15,38 @@ const connection = mysql.createConnection({
 });
 
 const router = express.Router();
+const games = [];
 
-router.get('/', function(req, res)
-{
+app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());                                     // parse application/json
+app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as constn
+app.use(cors());
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+router.get('/', (req, res) => {
 	console.log({ message: 'hooray! welcome to our api!' });
 	res.json({ message: 'hooray! welcome to our api!' });
 });
 
-
-router.get('/games',function(req, res)
-{
-  connection.connect();
-
-  connection.query("SELECT * FROM `games-feed` LIMIT 100", function(err, rows, fields) {
+router.get('/games',(req, res) => {
+  connection.query("SELECT * FROM `games-feed` LIMIT 100", (err, rows, fields) => {
     if (err) throw err;
     console.log(JSON.stringify(rows));
     return res.json(rows);
   });
-  connection.end();
 });
 
-app.on('error', function (err)
-{
+app.on('error', (err) => {
     console.error(err);
 });
 
-app.use(function (req, res, next)
-{
-  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+app.use( (req, res, next) {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log("===========================");
   console.log('||Client IP|'+ ip + "|Port:" + port+"||");
   console.log("===========================");

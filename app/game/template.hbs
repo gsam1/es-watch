@@ -1,9 +1,9 @@
 <h1>Games</h1>
-{{#each resp as |model|}}
+{{#each model as |item|}}
+{{log item}}
   <article>
-    <h2>{{model.title}}</h2>
-    <p>{{model.game}}</p>
-    <p>{{model.url}}</p>
+    <h2>{{item.title}}</h2>
+    <p>{{item.game}}</p>
+    <p>{{item.url}}</p>
   </article>
 {{/each}}
-{{outlet}}

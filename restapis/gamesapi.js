@@ -25,31 +25,6 @@ const connection = mysql.createConnection({
 
 const router = express.Router();
 
-/*class GAME {
-  const title;
-  const game;
-  const img;
-  const url;
-  const description;
-
-  constructor(title, game, img, url, description){
-    this.title = title;
-    this.game = game;
-    this.img = img;
-    this.url = url;
-    this.description = description;
-  };
-  toString()
-  {
-    return
-    "title: " + this.title +" "+
-    "game: " + this.game +" "+
-    "img: " + this.img +" "+
-    "url: " + this.url +" "+
-    "description: " + this.description +" ";
-  };
-}*/
-
 router.get('/', function(req, res)
 {
 	console.log({ message: 'hooray! welcome to our api!' });
@@ -64,7 +39,7 @@ router.get('/games',function(req, res)
   connection.query("SELECT * FROM `games-feed` LIMIT 100", function(err, rows, fields) {
     if (err) throw err;
     console.log(JSON.stringify(rows));
-    return res.json(JSON.stringify(rows));
+    return res.json(rows);
   });
   connection.end();
 });

@@ -1,9 +1,10 @@
 <h1>Games</h1>
 {{#each model as |item|}}
-{{log item}}
   <article>
     <h2>{{item.title}}</h2>
     <p>{{item.game}}</p>
-    <p>{{item.url}}</p>
+    <p>{{item.description}}</p>
+    <img src="{{item.img}}" alt='Article imgs'/>
+    <a href="{{item.url}}" target="_blank">Article URL</a>
   </article>
 {{/each}}

@@ -1,0 +1,25 @@
+{
+  "name": "restapis",
+  "version": "1.0.0",
+  "description": "restapi_npm_modules",
+  "main": "gamesapi.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gsam1/es-watch/tree/front-end-ui"
+  },
+  "keywords": [
+    "resapi"
+  ],
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.4",
+    "mysql": "^2.13.0"
+  }
+}

@@ -1,18 +1,19 @@
-'use strict';
+ 'use strict';
 // call the packages we need//
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mysql = require('mysql');
+//const mysql = require('mysql');
+const mongoose = require('mongoose');
 
 const app = express();
 const port = process.env.PORT || 8080;
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'ASD1234asd',
-  database : 'es-watch'
-});
+//const connection = mysql.createConnection({
+//  host     : 'localhost',
+//  user     : 'root',
+//  password : 'ASD1234asd',
+//  database : 'es-watch'
+//});
 
 const router = express.Router();
 const games = [];
@@ -21,7 +22,16 @@ app.use(bodyParser.urlencoded({'extended':'true'}));            // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as constn
 app.use(cors());
-
+mongoose.connect('mongodb://localhost:27017/es-watch');
+const Feeds = mongoose.model('feed',{
+  gid: String,
+  published: String,
+  category: String,
+  title: String,
+  url: String,
+  content: String,
+  img: String
+});
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -33,11 +43,14 @@ router.get('/', (req, res) => {
 	res.json({ message: 'hooray! welcome to our api!' });
 });
 
-router.get('/games',(req, res) => {
-  connection.query("SELECT * FROM `games-feed` LIMIT 100", (err, rows, fields) => {
-    if (err) throw err;
-    console.log(JSON.stringify(rows));
-    return res.json(rows);
+router.get('/feeds',(req, res) => {
+  const item = Feeds.find().limit(200);
+  item.exec((err,result)=>{
+    if(err){
+      console.log(err);
+      res.end(err);
+    }
+    res.json(result)
   });
 });
 

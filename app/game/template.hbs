@@ -2,8 +2,10 @@
 {{#each model as |item|}}
   <article>
     <h2>{{item.title}}</h2>
-    <p>{{item.game}}</p>
+    <p>{{item.category}}</p>
     <p>{{item.description}}</p>
+    <p>{{item.published}}</p>
+    <p>{{item.content}}</p> 
     <img src="{{item.img}}" alt='Article imgs'/>
     <a href="{{item.url}}" target="_blank">Article URL</a>
   </article>

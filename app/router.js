@@ -22,6 +22,10 @@ Router.map(function() {
   this.route('users', {
     path: ':user_id'
   }, function() {});
+
+  this.route('login');
+  this.route('register');
+  this.route('authenticated');
 });
 
 export default Router;

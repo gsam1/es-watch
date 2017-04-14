@@ -32,6 +32,13 @@ const Feeds = mongoose.model('feed',{
   content: String,
   img: String
 });
+const Users = mongoose.model('user',{
+  username: String,
+  password: String,
+  email: String,
+  avatar: String
+})
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -53,6 +60,23 @@ router.get('/feeds',(req, res) => {
     res.json(result)
   });
 });
+
+router.post('/users',(req, res) => {
+  console.log(req.body);
+  Users.create({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    avatar: req.body.avatar
+  },(err,result)=>{
+    if(err){
+      console.log(err);
+      res.end(err);
+    }
+    res.send(`User ${result.username} was succesfully created!`);
+  });
+});
+
 
 app.on('error', (err) => {
     console.error(err);

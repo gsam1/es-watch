@@ -18,8 +18,8 @@ mongoose.connect(`mongodb://ktzolev:eswatch123@ds123662.mlab.com:23662/eswatch`)
 
 
 const Feeds = require('./mongooseSchemas/gameModel.js');
-
 const router = express.Router();
+const games = require('./Controllers/games.js');
 
 router.get('/', function(req, res)
 {
@@ -28,40 +28,11 @@ router.get('/', function(req, res)
 });
 
 
-router.get('/games',function(req, res)
-{
-       Feeds.find({}).exec(function(err, feeds)
-       {
-            if(err){ throw err; }
-            res.send(feeds);
-      });
-});
+router.get('/games',games.findAll);
 
-router.get('/games/bytitle/',function(req, res)
-{
-    const name = req.headers.name;
-    console.log('Query for:' + name);
-    console.log(req.headers);
+router.get('/games/bytitle/',games.findByTitle);
 
-    Feeds.find({title: { $regex: '.*' + name + '.*' } }).exec(function(err,feed)
-    {
-        if(err){ res.send(err); }
-        res.json(feed);
-    });
-});
-
-router.get('/games/categories/',function(req, res)
-{
-    const category = req.headers.category;
-    console.log(req.headers);
-
-    console.log('Query for:' + category);
-    Feeds.find({}).where('category').equals(category).exec(function(err,feeds)
-    {
-        if(err){ res.send(err); }
-        res.json(feeds);
-    });
-});
+router.get('/games/categories/',games.findByCategory);
 
 
 app.on('error', function (err)

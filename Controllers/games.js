@@ -1,11 +1,28 @@
 const Feeds = require('../mongooseSchemas/gameModel.js');
-
 exports.findAll = function(req, res) {
-  Feeds.find({}).exec(function(err, feeds)
-  {
-     if(err){ throw err; }
-     res.send(feeds);
+  const perPage = 50;
+  const page = req.query.page > 0 && req.query.page !== undefined ? req.query.page : 0;
+
+  console.log(page);
+  console.log(perPage);
+  console.log(page*perPage);
+
+  Feeds.count({},function(err,count){
+  Feeds.find({}, null, {
+    sort: {
+      published: 1
+    }
+  }).skip(page * perPage).limit(perPage).exec(function(err, docs) {
+    if (err)
+      res.json(err);
+    else
+      res.json({
+        "TotalCount": count,
+        "feeds": docs
+      });
   });
+ });
+
 }
 
 exports.findByTitle = function(req, res) {

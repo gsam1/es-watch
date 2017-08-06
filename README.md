@@ -1,28 +1,53 @@
-# es-watch
-### A collaboration project, focusing on the flow...
+# Esapp
 
-## General Info
+This README outlines the details of collaborating on this Ember application.
+A short introduction of this app could easily go here.
 
- * Version: 0.0.0
- * Authors: Georgi & Konstantin
- * Description: A colab between both of us for a platform.
+## Prerequisites
 
+You will need the following things properly installed on your computer.
 
+* [Git](http://git-scm.com/)
+* [Node.js](http://nodejs.org/) (with NPM)
+* [Bower](http://bower.io/)
+* [Ember CLI](http://ember-cli.com/)
+* [PhantomJS](http://phantomjs.org/)
 
-## Notes
+## Installation
 
-### General
-  * S1 Deadline: 09.11.2016
-  * S1 Tasks:
-    * Aggregator Base Ready
-    * FE/BE Alpha Ready
+* `git clone <repository-url>` this repository
+* `cd esapp`
+* `npm install`
+* `bower install`
 
-### DB Structure
-  * /users
-  * /games-feed : id; game; title; description; img; url
-  * /scores : id; game; team1; team2; result
-  * /last-updates : id; date-time; game_id
+## Running / Development
 
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
-## License
-Was is das?
+### Code Generators
+
+Make use of the many generators for code, try `ember help generate` for more details
+
+### Running Tests
+
+* `ember test`
+* `ember test --server`
+
+### Building
+
+* `ember build` (development)
+* `ember build --environment production` (production)
+
+### Deploying
+
+Specify what it takes to deploy your app.
+
+## Further Reading / Useful Links
+
+* [ember.js](http://emberjs.com/)
+* [ember-cli](http://ember-cli.com/)
+* Development Browser Extensions
+  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+

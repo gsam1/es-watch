@@ -2,14 +2,18 @@
 {{#link-to "game" click=(action "prevPage") tagName="button"}}prevPage{{/link-to}}
 {{#link-to "game" click=(action "nextPage") tagName="button"}}nextPage{{/link-to}}
 
-{{#each arrengedContent as |item index|}}
+{{#each pages as |item index|}}
    {{#link-to "game" (query-params page=index) tagName="button"}}{{add-one index}}{{/link-to}}
 {{/each}}
-{{#each arrengedContent as |item|}}
+{{#each arrengedContent as |item index|}}
+    <hr />
+    <p>{{add-one index}}</p>
    <p>{{item.published}}</p>
    <p>{{item.title}}</p>
    <p>{{item.content}}</p>
    <p>{{item.category}}</p>
    <p>{{item.url}}</p>
    <p>{{item.img}}</p>
+   <hr />
+   <br />
 {{/each}}

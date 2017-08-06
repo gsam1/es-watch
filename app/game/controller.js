@@ -3,14 +3,13 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   queryParams: ['page'],
   page: 0,
-
+  meta: {},
   metaData: Ember.computed('model', function(){
-    let meta = this.get('model.meta');
-    meta.totalCount = this.get('model.meta.totalCount');
-    meta.second_last = meta.totalCount - 1;
-    meta.third_last = meta.totalCount - 2;
-    return meta;
-  }),
+      let meta = this.get('meta');
+      meta['second_last'] = meta.totalCount - 1;
+      meta['third_last'] = meta.totalCount - 2;
+      return meta;
+    }),
 
   lastThreePages: Ember.computed('model', function(){
     if (this.get('page') < this.get('metaData.totalCount') - 3) {

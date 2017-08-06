@@ -7,13 +7,12 @@
 {{/each}}
 {{#each arrengedContent as |item index|}}
     <hr />
-    <p>{{add-one index}}</p>
+   <h3>{{item.category}}</h3>
+   <h4>{{item.title}}</h4>
    <p>{{item.published}}</p>
-   <p>{{item.title}}</p>
    <p>{{item.content}}</p>
-   <p>{{item.category}}</p>
-   <p>{{item.url}}</p>
-   <p>{{item.img}}</p>
+   <iframe width="420" height="315" src="{{url-parser item.url}}"></iframe>
+   <img src={{item.img}} alt="game-imgs"/>
    <hr />
    <br />
 {{/each}}

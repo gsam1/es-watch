@@ -1,0 +1,26 @@
+{
+  "name": "webapi",
+  "version": "1.0.0",
+  "description": "api for the web client",
+  "main": "webapi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsam1/es-watch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gsam1/es-watch/issues"
+  },
+  "homepage": "https://github.com/gsam1/es-watch#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.5",
+    "require": "^2.4.20"
+  }
+}

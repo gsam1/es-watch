@@ -1,1 +1,16 @@
-{{yield}}
+<div class="flex layout-column layout-align-center-center">
+  <div class="flex layout-row layout-align-center-start">
+    <h3>{{game.title}}</h3>
+    <h4>{{game.category}}</h4>
+  </div>
+  <div class="flex layout-column layout-align-center-start">
+    <div class="flex-50 layout-column layout-align-end-start">
+      <p>{{game.published}}</p>
+      <p>{{game.content}}</p>
+    </div>
+    <div class="flex-50 layout-column layout-align-end-end">
+      <iframe class="flex video" max-width="700px" max-height="600px" src="{{url-parser game.url}}"/>
+      <img class="flex img" src={{game.img}} alt="game-imgs"/>
+    </div>
+  </div>
+</div>

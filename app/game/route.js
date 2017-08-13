@@ -14,7 +14,10 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     controller.setProperties({
       'arrengedContent': model,
-      'meta': model.meta
+      'slicedContent':model.slice(0,10),
+      'meta': model.meta,
+      'page': '',
+      'index': 0
     });
   },
 

@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
   slicedContent: [],
 
   endIndex:Ember.computed('index',function(){
-    return this.get('index')+10;
+    return this.get('index') + 10;
   }),
   metaData: Ember.computed('model', function(){
       let meta = this.get('meta');
@@ -27,33 +27,16 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    nextPage() {
-      if (this.get('page') < this.get('metaData.totalCount')){
-        this.incrementProperty('page');
-      }
-    },
-
-    prevPage() {
-      if (this.get('page') > 0) {
-        this.decrementProperty('page');
-      }
-    },
-    fetchMore: function(callback) {
-      var promise = this.fetchMoreItems();
-      callback(promise);
-    },
-    popOutElements(){
-      let slices = this.get('slicedContent');
-      if(slices.length === 0 ){
-        this.set('index',this.get('index'));
-        slices = this.get('arrengedContent').slice(this.get('index'),this.get('endIndex'));
-        this.set('slicedContent',slices);
-      }
-      while(slices.length > 0){
-        slice.pop();
-      }
+    fetchMore() {
+         if (Ember.$(window).scrollTop() === Ember.$(document).height() - Ember.$(window).height()){
+           if (this.get('page') < this.get('metaData.totalCount')){
+             this.incrementProperty('page');
+           }
+         } else if(Ember.$(window).scrollTop() === 0){
+           if (this.get('page') > 0) {
+             this.decrementProperty('page');
+           }
+       }
     }
   }
-
-
 });

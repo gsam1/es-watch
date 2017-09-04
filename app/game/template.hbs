@@ -1,10 +1,5 @@
-{{outlet}}
-<div class="navigation">
-  {{#link-to "game" click=(action "prevPage") tagName="button"}}prevPage{{/link-to}}
-  {{#link-to "game" click=(action "nextPage") tagName="button"}}nextPage{{/link-to}}
-</div>
-<div class="container" popOutElements=popOutElements>
+<div class="container" onmousewheel={{action "fetchMore"}}>
   {{#each slicedContent as |item index|}}
-    {{game-feeds game=item}}
+    {{game-feeds game=item }}
   {{/each}}
 </div>

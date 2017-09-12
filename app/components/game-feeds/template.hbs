@@ -9,7 +9,7 @@
       <p>{{game.content}}</p>
     </div>
     <div class="flex-50 layout-column layout-align-end-end">
-      <iframe class="flex video" max-width="700px" max-height="600px" src="{{url-parser game.url}}"/>
+      {{lazy-video url=url}}
       <img class="flex img" src={{game.img}} alt="game-imgs"/>
     </div>
   </div>

@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
   urlParser:function(){
     const url = this.get('game.url');
-    debugger;
     const urlToReplaceWith = 'https://www.youtube.com/embed';
     const urlToReplace = 'https://www.youtube.com/watch?v=';
 

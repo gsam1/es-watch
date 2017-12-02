@@ -1,5 +1,33 @@
-<div class="container" onmousewheel={{action "fetchMore"}}>
-  {{#each slicedContent as |item index|}}
-    {{game-feeds game=item }}
-  {{/each}}
+<div class="container--fixed container__filterControls">
+  <span>Fitler Controls...</spna>
+</div>
+<div class="flex layout-row layout-align-center-center container container--fixed">
+  <div class="flex-35 layout-column">
+    {{#paper-select
+      options=categories
+      label="Filter by categories"
+      selected=chosenCat
+      onChange=(action "filterByCategory") as |cat|}}
+      {{cat}}
+    {{/paper-select}}
+  </div>
+  <div class="flex-35 layout-column">
+    {{paper-input
+      class="flex-30"
+      label="Filter by name"
+      value=chosenName
+      onChange=(action "filterByName")}}
+  </div>
+</div>
+{{log isLoading}}
+<div class="flex layout-column layout-wrap layout-align-center-center container" onmousewheel={{action "fetchMore"}}>
+  {{#if (gt filteredItemsByName.length 0 (and (not-eq chosenName '')))}}
+    {{#each filteredItemsByName as |item index|}}
+      {{game-feeds game=item }}
+    {{/each}}
+  {{else}}
+    {{#each arrengedContent as |item index|}}
+      {{game-feeds game=item }}
+    {{/each}}
+  {{/if}}
 </div>

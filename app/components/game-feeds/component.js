@@ -1,9 +1,6 @@
 import Ember from 'ember';
-import {URLParser} from 'ESApp/mixins/rota-bar-item';
 
-export default Ember.Component.extend(URLParser,{
+export default Ember.Component.extend({
   tagName:'',
-  url:Ember.Computed('game.url',function(){
-    return urlParser(this.get('game.url'));
-  })
+  url:Ember.computed.alias('game.url')
 });

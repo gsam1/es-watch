@@ -1,0 +1,15 @@
+.container {
+  padding: 10px;
+  &--fixed {
+    position: fixed;
+    opacity: 1;
+    left:0;
+    right: 0;
+    top:0;
+    z-index: 2;
+  }
+}
+.md-input{
+  padding: 10px;
+  margin: 15px;
+}

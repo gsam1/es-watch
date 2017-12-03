@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import urlParser from '../../mixins/url-parser';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(urlParser,{
   tagName:'',
-  url:Ember.computed.alias('game.url')
+  url: Ember.computed('game.url',function(){
+    return this.get('game.url');
+  })
 });

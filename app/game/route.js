@@ -16,7 +16,7 @@ export default Ember.Route.extend({
       'arrengedContent': model,
       'feeds': model,
       'meta': model.meta,
-      'isLoading':false,
+      'isLoading': false,
       'page': '',
       'index': 0
     });

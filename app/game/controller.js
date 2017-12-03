@@ -9,7 +9,8 @@ export default Ember.Controller.extend({
   slicedContent: [],
   chosenCat:'',
   chosenName:'',
-  isLoading:false,
+  isLoading: false,
+  toExpandFilterControls: false,
 
   endIndex:Ember.computed('index',function() {
     return this.get('index') + 10;
@@ -54,11 +55,11 @@ export default Ember.Controller.extend({
   actions: {
     fetchMore() {
       this.set('isLoading', true);
-         if (Ember.$(window).scrollTop() === Ember.$(document).height() - Ember.$(window).height()){
-           if (this.get('page') < this.get('metaData.totalCount')){
+         if (Ember.$(window).scrollTop() === Ember.$(document).height() - Ember.$(window).height()) {
+           if (this.get('page') < this.get('metaData.totalCount')) {
              this.incrementProperty('page');
            }
-         } else if(Ember.$(window).scrollTop() === 0){
+         } else if(Ember.$(window).scrollTop() === 0) {
            if (this.get('page') > 0) {
              this.decrementProperty('page');
            }
@@ -77,6 +78,10 @@ export default Ember.Controller.extend({
 
     filterByName(name) {
       this.set('chosenName',name);
+    },
+
+    expand() {
+      this.toggleProperty('toExpandFilterControls');
     }
   }
 });

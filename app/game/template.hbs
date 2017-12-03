@@ -1,7 +1,7 @@
-<div class="container--fixed container__filterControls">
-  <span>Fitler Controls...</spna>
+<div class="container container__filterControls"{{action 'expand'}}>
+  <span class="container__filterControls-label">Fitler Controls...</span>
 </div>
-<div class="flex layout-row layout-align-center-center container container--fixed">
+<div class="flex layout-row layout-align-center-center container container--fixed {{if toExpandFilterControls 'container--expand'}}">
   <div class="flex-35 layout-column">
     {{#paper-select
       options=categories
@@ -19,8 +19,7 @@
       onChange=(action "filterByName")}}
   </div>
 </div>
-{{log isLoading}}
-<div class="flex layout-column layout-wrap layout-align-center-center container" onmousewheel={{action "fetchMore"}}>
+<div class="flex layout-column layout-wrap layout-align-center-center feed-container" onmousewheel={{action "fetchMore"}}>
   {{#if (gt filteredItemsByName.length 0 (and (not-eq chosenName '')))}}
     {{#each filteredItemsByName as |item index|}}
       {{game-feeds game=item }}
@@ -31,3 +30,6 @@
     {{/each}}
   {{/if}}
 </div>
+{{#modal-window isLoading=isLoading}}
+  {{paper-progress-circular class="md-hue-1" diameter=60 strokeRatio=0.27}}
+{{/modal-window}}

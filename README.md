@@ -7,22 +7,11 @@
  * Authors: Georgi & Konstantin
  * Description: A colab between both of us for a platform.
 
+## Active Branch
+**back-end-algo**
 
-
-## Notes
-
-### General
-  * S1 Deadline: 09.11.2016
-  * S1 Tasks:
-    * Aggregator Base Ready
-    * FE/BE Alpha Ready
-
-### DB Structure
-  * /users
-  * /games-feed : id; game; title; description; img; url
-  * /scores : id; game; team1; team2; result
-  * /last-updates : id; date-time; game_id
-
+* Collector service - gather data from RSS and parse it to the DB
+* Ranking service - adjust the ranks on the data
 
 ## License
 Was is das?

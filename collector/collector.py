@@ -93,7 +93,8 @@ class FeedHandler(object):
                 'url': entry['link'],
                 'category': category,
                 'upvotes': 0, # Initiate upvotes
-                'rank': 0 # Initate the rank to 0
+                'rank': 0, # Initate the rank to 0,
+                'score':0,
                 'submitted_by':'system'
             } 
 

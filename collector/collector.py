@@ -92,7 +92,9 @@ class FeedHandler(object):
                 'title': entry['title'],
                 'url': entry['link'],
                 'category': category,
+                'upvotes': 0, # Initiate upvotes
                 'rank': 0 # Initate the rank to 0
+                'submitted_by':'system'
             } 
 
     def __parse_feed(self, url, category):

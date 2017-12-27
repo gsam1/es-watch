@@ -14,6 +14,5 @@
 ### General
 This is for the branch Ranking.
 
-
 ## License
 Was is das?

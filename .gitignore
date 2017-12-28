@@ -1,6 +1,7 @@
-\ranking\bin\*
-\ranking\include\*
-\ranking\lib\*
-\ranking\local\*
-\config\*
-\ranking\pip-selfcheck.json
+/ranking/bin/*
+/ranking/include/*
+/ranking/lib/*
+/ranking/local/*
+/ranking/config/*
+/ranking/pip-selfcheck.json
+/ranking/output.txt

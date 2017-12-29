@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 import json
 import numpy as np
 from datetime import datetime
@@ -18,19 +19,48 @@ class DBHandler(object):
         _db = _client.eswatch
         self.collection = _db.articles
 
-    def update_article_score(self, gid, score):
+    def update_article_score(self, _id, score):
         '''
-            Update the article in the database database
+            Update the article in the database database.
         '''
-        self.collection.update_one({'gid':gid},{'$set':{'score':score}}, upsert=False)
+        self.collection.update_one({'_id':ObjectId(_id)},{'$set':{'score':score}}, upsert=False)
         # print 'Item updated: ' + gid
 
+    def update_article_rank(self, _id, rank):
+        '''
+            Update the rank of the article.
+        '''
+        self.collection.update_one({'_id':ObjectId(_id)},{'$set':{'rank':rank}}, upsert=False)
+    
     def get_all(self):
         return self.collection.find()
 
-    def get_one(self, gid):
-        return self.collection.find_one({'gid':gid})
+    def get_one(self, id):
+        return self.collection.find_one({'_id':ObjectId(id)})
+    
+    def get_min_score(self):
+        '''
+            Gets the article with the minimum score and rank 0 (no rank).
+        '''
+        return self.collection.find({'rank':0}).sort([('score',1)]).limit(1)
+    
+    def get_article_count(self):
+        '''
+            Gets the article count.
+        '''
+        return self.collection.count()
+    
+# ---WIP---
+class Ranking(object):
+    '''
+        It updates the score of the articles ands ranks them
+    '''
+    def __init__(self, db_con_string):
+        self.dbhandler = DBHandler(db_con_string)
+    
 
+
+    
 
 def calc_individual_score(published, upvotes):
     '''
@@ -38,7 +68,7 @@ def calc_individual_score(published, upvotes):
     '''
     pub = published.encode().split()
 
-    # There must be a smarter way of doing this.
+    # TODO: There must be a smarter way of doing this.
     if len(pub) == 6:
         fmt = '%Y-%b-%d %H:%M:%S'
         pub_date_time = pub[3] + '-' + pub[2] + '-' + pub[1] + ' ' + pub[4]
@@ -92,13 +122,30 @@ def main():
     '''
         Executes the ranking algorithm
     '''
-
     dbstring = json.loads(open('./config/config.json').read())['db']
     dbhandler = DBHandler(dbstring)
+    # print dbhandler.get_one('5a43e36b5c59736a447b186e')
+
     # pull all articles from the db and update their score
+    # Scoring
+    print 'Scoring Began at: ' + str(datetime.now())
+
     for article in dbhandler.get_all():
         sc = calc_individual_score(article['published'], article['upvotes'])
-        dbhandler.update_article_score(article['gid'], sc)
+        dbhandler.update_article_score(article['_id'], sc)
+    
+    print 'Scoring Complete at: ' + str(datetime.now())
+
+    # Ranking
+    
+    print 'Ranking Begant at: ' + str(datetime.now())
+    max_rank = dbhandler.get_article_count()
+    
+    for i in xrange(1,max_rank+1):
+        article_without_rank = list(dbhandler.get_min_score())[0]
+        dbhandler.update_article_rank(article_without_rank['_id'],i)
+
+    print 'Ranking Complete at: ' + str(datetime.now())
 
 
 

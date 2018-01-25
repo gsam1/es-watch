@@ -1,6 +1,8 @@
 import Ember from 'ember';
-
+const { inject: {service}, computed } = Ember;
 export default Ember.Controller.extend({
+  session: service('session'),
+  isAuthenticated: computed.alias('session.isAuthenticated'),
   queryParams: ['page'],
   page: 0,
   index:0,

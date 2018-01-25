@@ -1,0 +1,16 @@
+<h2>Welcome to Ember</h2>
+<nav>
+  {{#link-to 'index' classNames='navbar-brand'}}
+    Home
+  {{/link-to}}
+
+  {{#if session.isAuthenticated}}
+    <button onclick={{action 'logout'}}>Logout</button>
+    {{#if currentUser.user}}
+      <p>Signed in as {{session.currentUser.user.email}}</p>
+    {{/if}}
+  {{else}}
+    {{#link-to 'login'}}Login{{/link-to}}
+  {{/if}}
+</nav>
+{{outlet}}

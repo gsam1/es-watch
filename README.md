@@ -7,12 +7,16 @@
  * Authors: Georgi & Konstantin
  * Description: A colab between both of us for a platform.
 
+## Active Branch
+**back-end-algo**
 
 
 ## Notes
 
 ### General
 This is for the branch Ranking.
+* Collector service - gather data from RSS and parse it to the DB
+* Ranking service - adjust the ranks on the data
 
 ## License
 Was is das?

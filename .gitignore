@@ -6,3 +6,10 @@
 /ranking/config/*
 /ranking/pip-selfcheck.json
 /ranking/output.txt
+/collector/config/*
+/collector/bin/*
+/collector/include/*
+/collector/lib/*
+/collector/local/*
+/collector/pip-selfcheck.json
+/collector/recent_pull.p

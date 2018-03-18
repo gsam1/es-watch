@@ -17,6 +17,11 @@
 /include/*
 /lib/*
 /local/*
-/config/*
+config/*
 /pip-selfcheck.json
 /output.txt
+recent_pull.p
+*.pyc
+ranking/*.pyc
+collector/*.pyc
+dbhandler/*.pyc

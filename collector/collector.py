@@ -21,7 +21,7 @@ class LocalCopy(object):
     '''
     def __init__(self):
         try:
-            data = pickle.load(open('recent_pull.p', 'rb'))
+            data = pickle.load(open('../recent_pull.p', 'rb'))
         except IOError:
             self.exists = (False, 0)
         else:
@@ -128,6 +128,7 @@ class FeedHandler(object):
 
 class DBHandler(object):
     '''
+    DEPRICATED: TO REMOVE IN FUTURE VERSION
     Class for handling the DB connection.
     Has a method for uploading everything into the Database
     '''
@@ -141,30 +142,33 @@ class DBHandler(object):
 
 
 
-def main():
+def main(dbhandler, sources_path):
     '''
         Executes everything...
     '''
-    config = json_parser('./collector/config/config.json')
-    print config
-    # local_copy = LocalCopy()
+    local_copy = LocalCopy()
     
     # sources = config['sources']
     # db_string = config['db']
 
-    # if local_copy.check():
-    #     print 'Local copy found.'
-    #     content = local_copy.get_data()['data']
-    # else:
-    #     print 'No local copy found. Pulling new feeds.'
-    #     feed = FeedHandler(sources)
-    #     content = feed.exprort_data()
-    #     local_copy.save(content)
-    
-    # db_handler = DBHandler(db_string)
+    if local_copy.check():
+        print 'Local copy found.'
+        content = local_copy.get_data()['data']
+    else:
+        print 'No local copy found. Pulling new feeds.'
+        feed = FeedHandler(sources_path)
+        content = feed.exprort_data()
+        local_copy.save(content)
+
+    dbhandler.push_to_db(content)
+
+    print "Collector Service Finished!"
+    # Below should not work as I am passing the common db handler object
+    # db_handler = DBHandler(some_connection_string)
     # db_handler.push_to_db(content)
 
 
 if __name__ == "__main__":
     main()
+    # print json_parser('../config/feed_sources.json')
     print "Done!"

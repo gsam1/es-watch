@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 import json
 import numpy as np
 from datetime import datetime
+import os.path
 
 # HELPERS
 def new_dt_logger(published):
@@ -63,8 +64,8 @@ class Ranking(object):
     '''
         It updates the score of the articles ands ranks them
     '''
-    def __init__(self, db_con_string):
-        self._dbhandler = DBHandler(db_con_string)
+    def __init__(self, db_handler_obj):
+        self._dbhandler = db_handler_obj
     
     def _calc_individual_score(self, published, upvotes):
         '''
@@ -151,15 +152,16 @@ class Ranking(object):
         print ('Ranking Complete at: ' + str(datetime.now()))
 
 
-def main():
+def main(dbhandler):
     '''
         Executes the ranking algorithm
     '''
-    dbstring = json.loads(open('./ranking/config/config.json').read())['db']
-    print dbstring
-    # ranking = Ranking(dbstring)
-    # ranking.scoring()
-    # ranking.rank()
+    # dbstring = json.loads(open('../config/config_service.json').read())
+    # dbstring = json.loads(open('./ranking/config/config.json').read())['db']
+    ranking = Ranking(dbhandler)
+    ranking.scoring()
+    ranking.rank()
+    print "Ranking Service Finished!"
 
 
 if __name__ == "__main__":

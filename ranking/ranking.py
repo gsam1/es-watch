@@ -12,6 +12,7 @@ def new_dt_logger(published):
 # Classes
 class DBHandler(object):
     '''
+    DEPRICATED: TO REMOVE IN FUTURE VERSION
     Class for handling the DB connection.
     Has a method for uploading everything into the Database
     '''
@@ -64,8 +65,9 @@ class Ranking(object):
     '''
         It updates the score of the articles ands ranks them
     '''
-    def __init__(self, db_handler_obj):
+    def __init__(self, db_handler_obj, scoring_weights):
         self._dbhandler = db_handler_obj
+        self._scoring_weights = scoring_weights
     
     def _calc_individual_score(self, published, upvotes):
         '''
@@ -116,8 +118,10 @@ class Ranking(object):
         min_diff = time_diff.days*24*60 + time_diff.seconds / 60
 
         # Score Calc algorithm
-        wd = 1 # Weighting on the date
-        wu = 1 # Weighting on the upvotes
+        wd = _scoring_weights['weight_dates']
+        wu = _scoring_weights['weight_upvotes']
+        # wd = 1 # Weighting on the date
+        # wu = 1 # Weighting on the upvotes
         random_factor = np.random.normal(0, 0.1)
         score = min_diff * wd - upvotes * wu + random_factor
 
@@ -152,13 +156,13 @@ class Ranking(object):
         print ('Ranking Complete at: ' + str(datetime.now()))
 
 
-def main(dbhandler):
+def main(dbhandler, ranking_config):
     '''
         Executes the ranking algorithm
     '''
     # dbstring = json.loads(open('../config/config_service.json').read())
     # dbstring = json.loads(open('./ranking/config/config.json').read())['db']
-    ranking = Ranking(dbhandler)
+    ranking = Ranking(dbhandler, ranking_config['scoring'])
     ranking.scoring()
     ranking.rank()
     print "Ranking Service Finished!"

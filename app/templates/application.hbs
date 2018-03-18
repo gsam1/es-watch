@@ -1,16 +1,17 @@
-<h2>Welcome to Ember</h2>
-<nav>
-  {{#link-to 'index' classNames='navbar-brand'}}
-    Home
-  {{/link-to}}
-
-  {{#if session.isAuthenticated}}
-    <button onclick={{action 'logout'}}>Logout</button>
-    {{#if currentUser.user}}
-      <p>Signed in as {{session.currentUser.user.email}}</p>
+<div class="main-outlet layout-column">
+<header class="flex layout-row layout-align-center-center">
+  <h2>Welcome to ES-WATCH app</h2>      
+</header>
+<nav  class="flex layout-column">
+  <div class="flex layout-row layout-align-center-end">
+    {{#if session.isAuthenticated}}
+      <p>Signed in as {{session.data.authenticated.access_token.email}}</p>
+      <button onclick={{action 'logout'}}>Logout</button>      
+    {{else}}
+      {{#link-to "login"}}Login/{{/link-to}}
+      {{#link-to "register"}}Register{{/link-to}}
     {{/if}}
-  {{else}}
-    {{#link-to 'login'}}Login{{/link-to}}
-  {{/if}}
+  </div>
 </nav>
-{{outlet}}
+{{outlet}}    
+</div>

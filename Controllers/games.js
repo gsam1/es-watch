@@ -1,4 +1,4 @@
-const Feeds = require('../mongooseSchemas/gameModel.js');
+const Feeds = require('../mongooseSchemas/article.js');
 exports.findAll = function(req, res) {
   const perPage = 50;
   const page = req.query.page > 0 && req.query.page !== undefined && req.query.page !==NaN ? req.query.page: 0;

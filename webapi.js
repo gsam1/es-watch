@@ -34,6 +34,8 @@ router.get('/games/categories/', games.findByCategory);
 
 router.post('/users/authenticate/', users.authenticate);
 
+router.post('/users/create/', users.create);
+
 router.get('/articles/', articles.findAll);
 // route middleware to verify a token
 router.use(function(req, res, next) {
@@ -65,7 +67,7 @@ router.use(function(req, res, next) {
 });
 router.get('/users', users.findAll);
 
-router.get('/user', users.findOne);
+router.get('/user/me', users.findOne);
 
 app.on('error', function (err)
 {

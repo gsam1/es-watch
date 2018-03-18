@@ -5,6 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'esapp',
     environment: environment,
     rootURL: '/',
+    apiBaseUrl: 'http://localhost:8080/api/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {

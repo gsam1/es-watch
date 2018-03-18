@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('feeds');
   this.route('game');
   this.route('login');
+  this.route('register');
 });
 
 export default Router;

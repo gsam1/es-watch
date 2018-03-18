@@ -12,14 +12,53 @@ exports.findAll = function(req, res) {
      res.json(users);
    });
 }
+exports.create = function(req, res) {
+  const {email, name, password, confirmPassword} = req.body.user ? req.body.user : req.body;
+  console.log(name);
+  console.log(email);  
+  console.log(password);
+  console.log(confirmPassword);
+  
+  Users.find({ $or:[
+       {email: email},
+       {username: name}
+      ]
+    }, function (err, docs) {
+      if (docs.length) {
+        res.status(422).send({error: 'User with this email or username already exist.'});
+      }else{
+        if(password !== confirmPassword) { 
+          res.status(422).send({error: 'Passwords doesn\'t match.'});   
+        }else {
+          const payload = {
+            username: name,
+            email: email,
+            password: password,
+            avatar: ''
+          };
+          const user = new Users(payload);
+      
+          user.save().then((item) => {
+            console.log("item saved to database:\n" + item);
+          })
+          .catch((err) => {
+            console.log("unable to save to database " + err);
+          });
+      
+          res.status(205).send({success: 'New user successfully created!'});   
+        }
+      }
+  });
 
+}
 exports.authenticate = function(req, res) {
-  const {email, password} = req.body.user ? req.body.user : req.body;
-  console.log(email)
-  console.log(password)
+  const {email, username, password} = req.body.user ? req.body.user : req.body;
+  console.log(req.body);
+  console.log(email);
+  console.log(password);
 
   // find the user
-  Users.find({email: email }).exec(function(err, user) {
+  Users.find({email: email  ? email : username }).exec(function(err, user) {
     if (err) throw err;
     let jsonUser = {};
     jsonUser = JSON.parse(JSON.stringify(user));
@@ -49,10 +88,12 @@ exports.authenticate = function(req, res) {
         });
 
         res.json({
-          success: true,
-          message: 'Enjoy your token!',
-          token: token,
-          email: jsonUser[0].email
+          access_token: {
+            success: true,
+            message: 'Enjoy your token!',
+            token: token,
+            email: jsonUser[0].email 
+          }
         });
 
         } else {
